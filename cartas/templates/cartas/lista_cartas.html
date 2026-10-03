@@ -1,0 +1,373 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>EA FC 27 - Cartas</title>
+
+    <style>
+        * {
+            box-sizing: border-box;
+        }
+
+        body {
+            margin: 0;
+            font-family: Arial, sans-serif;
+            background: #111318;
+            color: white;
+        }
+
+        /* ENCABEZADO */
+
+        header {
+            background: #1a1d24;
+            border-bottom: 3px solid #b6ff00;
+            padding: 18px 40px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        header h1 {
+            margin: 0;
+            font-size: 27px;
+        }
+
+        header span {
+            color: #b6ff00;
+        }
+
+        .agregar {
+            text-decoration: none;
+            background: #b6ff00;
+            color: #111;
+            padding: 11px 20px;
+            border-radius: 5px;
+            font-weight: bold;
+        }
+
+        .agregar:hover {
+            background: #d0ff54;
+        }
+
+        /* CONTENIDO */
+
+        .contenedor {
+            width: 92%;
+            max-width: 1300px;
+            margin: 35px auto;
+        }
+
+        .titulo {
+            margin-bottom: 25px;
+        }
+
+        .titulo h2 {
+            margin-bottom: 5px;
+            font-size: 24px;
+        }
+
+        .titulo p {
+            margin-top: 0;
+            color: #a9adb7;
+        }
+
+        /* CARTAS */
+
+        .grid-cartas {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(230px, 1fr));
+            gap: 25px;
+        }
+
+        .carta {
+            background: linear-gradient(
+                145deg,
+                #e8c96b,
+                #b99134
+            );
+
+            color: #171717;
+
+            border-radius: 12px;
+            padding: 20px;
+
+            min-height: 350px;
+
+            position: relative;
+
+            box-shadow: 0 8px 18px rgba(0,0,0,0.4);
+
+            border: 2px solid #f4df8c;
+        }
+
+        .superior {
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-start;
+        }
+
+        .media {
+            font-size: 42px;
+            font-weight: bold;
+            line-height: 1;
+        }
+
+        .posicion {
+            font-size: 18px;
+            font-weight: bold;
+            margin-top: 3px;
+        }
+
+        .tipo {
+            background: rgba(0,0,0,0.15);
+            padding: 5px 8px;
+            border-radius: 4px;
+            font-size: 12px;
+            font-weight: bold;
+        }
+
+        .jugador {
+            margin-top: 65px;
+            text-align: center;
+        }
+
+        .jugador h3 {
+            margin: 0;
+            font-size: 21px;
+            text-transform: uppercase;
+        }
+
+        .linea {
+            height: 1px;
+            background: rgba(0,0,0,0.35);
+            margin: 12px 0;
+        }
+
+        .informacion {
+            font-size: 13px;
+            line-height: 1.6;
+        }
+
+        .informacion p {
+            margin: 3px 0;
+        }
+
+        .precio {
+            margin-top: 12px;
+            font-size: 18px;
+            font-weight: bold;
+            text-align: center;
+        }
+
+        /* BOTONES */
+
+        .acciones {
+            margin-top: 15px;
+            display: flex;
+            gap: 8px;
+        }
+
+        .acciones a {
+            flex: 1;
+            text-align: center;
+            text-decoration: none;
+            padding: 8px;
+            border-radius: 4px;
+            font-size: 13px;
+            font-weight: bold;
+        }
+
+        .editar {
+            background: #20242c;
+            color: white;
+        }
+
+        .editar:hover {
+            background: #343944;
+        }
+
+        .eliminar {
+            background: #b52828;
+            color: white;
+        }
+
+        .eliminar:hover {
+            background: #d33434;
+        }
+
+        /* SIN CARTAS */
+
+        .vacio {
+            background: #1a1d24;
+            border: 1px solid #333844;
+            padding: 40px;
+            border-radius: 8px;
+            text-align: center;
+            color: #aaa;
+        }
+
+        /* INFORMACION CRUD */
+
+        .crud-info {
+            margin-top: 40px;
+            background: #1a1d24;
+            border: 1px solid #333844;
+            border-left: 4px solid #b6ff00;
+            padding: 18px;
+            border-radius: 5px;
+        }
+
+        .crud-info h3 {
+            margin-top: 0;
+        }
+
+        .crud-info span {
+            color: #b6ff00;
+            font-weight: bold;
+        }
+
+    </style>
+
+</head>
+
+
+<body>
+
+<header>
+
+    <h1>
+        EA FC <span>27</span>
+    </h1>
+
+    <a class="agregar" href="{% url 'agregar_carta' %}">
+        + Agregar carta
+    </a>
+
+</header>
+
+
+<div class="contenedor">
+
+    <div class="titulo">
+
+        <h2>Gestión de Cartas</h2>
+
+        <p>
+            Administración de jugadores registrados en la base de datos.
+        </p>
+
+    </div>
+
+
+    {% if cartas %}
+
+    <div class="grid-cartas">
+
+        {% for carta in cartas %}
+
+        <div class="carta">
+
+            <div class="superior">
+
+                <div>
+                    <div class="media">
+                        {{ carta.media }}
+                    </div>
+
+                    <div class="posicion">
+                        {{ carta.posicion }}
+                    </div>
+                </div>
+
+                <div class="tipo">
+                    {{ carta.tipo_carta }}
+                </div>
+
+            </div>
+
+
+            <div class="jugador">
+
+                <h3>
+                    {{ carta.nombre }}
+                </h3>
+
+            </div>
+
+
+            <div class="linea"></div>
+
+
+            <div class="informacion">
+
+                <p>
+                    <strong>Club:</strong>
+                    {{ carta.club }}
+                </p>
+
+                <p>
+                    <strong>Liga:</strong>
+                    {{ carta.liga }}
+                </p>
+
+                <p>
+                    <strong>Nacionalidad:</strong>
+                    {{ carta.nacionalidad }}
+                </p>
+
+            </div>
+
+
+            <div class="precio">
+                {{ carta.precio }} monedas
+            </div>
+
+
+            <div class="acciones">
+
+                <a
+                    class="editar"
+                    href="{% url 'editar_carta' carta.id %}">
+                    Editar
+                </a>
+
+                <a
+                    class="eliminar"
+                    href="{% url 'eliminar_carta' carta.id %}">
+                    Eliminar
+                </a>
+
+            </div>
+
+        </div>
+
+        {% endfor %}
+
+    </div>
+
+
+    {% else %}
+
+    <div class="vacio">
+
+        <h3>No hay cartas registradas</h3>
+
+        <p>
+            Utiliza el botón "Agregar carta" para registrar
+            el primer jugador.
+        </p>
+
+    </div>
+
+    {% endif %}
+
+
+   
+
+</div>
+
+</body>
+</html>

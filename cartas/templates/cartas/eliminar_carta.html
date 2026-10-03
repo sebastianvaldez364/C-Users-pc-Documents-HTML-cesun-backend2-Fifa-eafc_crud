@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Eliminar Carta</title>
+</head>
+
+<body>
+
+    <h1>Eliminar Carta</h1>
+
+    <p>
+        ¿Seguro que deseas eliminar la carta de
+        <strong>{{ carta.nombre }}</strong>?
+    </p>
+
+    <form method="POST">
+
+        {% csrf_token %}
+
+        <button type="submit">
+            Sí, eliminar
+        </button>
+
+    </form>
+
+    <br>
+
+    <a href="{% url 'lista_cartas' %}">
+        Cancelar
+    </a>
+
+</body>
+
+</html>

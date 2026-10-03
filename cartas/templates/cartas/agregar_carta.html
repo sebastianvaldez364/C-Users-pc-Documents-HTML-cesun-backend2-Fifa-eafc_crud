@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Agregar Carta</title>
+</head>
+
+<body>
+
+    <h1>Agregar Carta EA FC 27</h1>
+
+    <form method="POST">
+
+        {% csrf_token %}
+
+        {{ form.as_p }}
+
+        <button type="submit">
+            Guardar carta
+        </button>
+
+    </form>
+
+    <br>
+
+    <a href="{% url 'lista_cartas' %}">
+        Volver a las cartas
+    </a>
+
+</body>
+</html>
